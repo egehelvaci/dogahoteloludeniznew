@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%; /* Metin boyutunu iOS'ta düzgün görüntülenmesi için */
+  -webkit-tap-highlight-color: transparent; /* Mobil cihazlarda tıklama vurgusunu kaldır */
+}
+
+header + * {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Mobil cihazlar için genel stil ayarlamaları */
+@media (max-width: 767px) {
+  input, select, textarea, button {
+    font-size: 16px !important; /* iOS'ta yakınlaştırmayı önlemek için minimum 16px font */
+  }
+  
+  /* Dokunmatik hedeflerin boyutu en az 44x44px olmalı */
+  button, 
+  [role="button"],
+  a.btn,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Tablo ve büyük içerikler için yatay kaydırma */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Yüklenen resimlerin taşmasını önleme */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* iOS ve Android için kaydırma davranışını iyileştirme */
+@supports (-webkit-overflow-scrolling: touch) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}

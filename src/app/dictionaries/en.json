@@ -1,0 +1,14 @@
+{
+  "gallery": {
+    "galleryTitle": "Photo Gallery",
+    "gallerySubtitle": "Beautiful photos from our hotel",
+    "viewImage": "View Image",
+    "previous": "Previous",
+    "next": "Next",
+    "close": "Close",
+    "watchVideo": "Watch Video",
+    "loadingVideo": "Loading Video...",
+    "videoDescription": "Video Description",
+    "videoTitle": "Video Title"
+  }
+} 

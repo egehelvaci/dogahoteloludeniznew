@@ -1,0 +1,60 @@
+{
+  "heroImage": "/images/aboutus/hakkimizda.jpg",
+  "mainImage": "/images/aboutus/hakkimizda.jpg",
+  "titleTR": "Doğa Hotel",
+  "titleEN": "Doga Hotel",
+  "subtitleTR": "Yeşil & Mavi'nin kavuşmasına Gelin birlikte tanık olalım...",
+  "subtitleEN": "Let's witness the meeting of Green & Blue together...",
+  "contentTR": [
+    "Doğa sevgisinin, güzelliğin ve zarafetin buluşma noktası olan otelimizde bizler, huzurun ve konforun birleştiği bu noktada doyumsuz bir tatil deneyimi gerçekleştirmeniz için uzun yılların tecrübesiyle yanınızdayız. Sizi dinlenmiş, eğlenmiş ve misafirliğinizden maksimum verim almış bir şekilde uğurlamak bizler için en önemli motivasyon kaynağı olmakta.",
+    "Otelimiz 24 adet Standart oda, 20 adet Triple oda, 8 adet Suit oda (1+1), ve 6 adet Apart (2+1) toplamda 58 oda mevcut olup biri kaydıraklı 2 adet yüzme havuzlarından oluşan iki ayrı bölümden restaurant, cafe muazzam bahçesi ve zeytin ağaçları arasında huzur dolu oturma bölümlerinden oluşmaktadır."
+  ],
+  "contentEN": [
+    "At our hotel, which is a meeting point of love of nature, beauty and elegance, we are with you with many years of experience to help you have an unsatisfactory holiday experience at this point where peace and comfort come together. It is the most important source of motivation for us to send you off rested, entertained and getting the maximum efficiency from your hospitality.",
+    "Our hotel has a total of 58 rooms, consisting of 24 Standard rooms, 20 Triple rooms, 8 Suite rooms (1+1), and 6 Apart units (2+1), with two separate sections including two swimming pools (one with a water slide), a restaurant, cafe, magnificent garden, and peaceful seating areas among olive trees."
+  ],
+  "features": [
+    {
+      "id": "rooms",
+      "iconName": "FaBed",
+      "titleTR": "58 Konforlu Oda",
+      "titleEN": "58 Comfortable Rooms",
+      "descriptionTR": "24 standart oda, 20 triple oda, 8 suit oda ve 6 apart daire",
+      "descriptionEN": "24 standard rooms, 20 triple rooms, 8 suite rooms, and 6 apart units"
+    },
+    {
+      "id": "pools",
+      "iconName": "FaSwimmingPool",
+      "titleTR": "2 Yüzme Havuzu",
+      "titleEN": "2 Swimming Pools",
+      "descriptionTR": "Kaydıraklı havuz ve ferah yüzme havuzu ile eğlence ve dinlenme",
+      "descriptionEN": "Fun and relaxation with a water slide pool and a spacious swimming pool"
+    },
+    {
+      "id": "restaurant",
+      "iconName": "FaUtensils",
+      "titleTR": "Restaurant ve Cafe",
+      "titleEN": "Restaurant and Cafe",
+      "descriptionTR": "Tüm damak zevklerine hitap eden lezzetli menüler",
+      "descriptionEN": "Delicious menus catering to all tastes"
+    },
+    {
+      "id": "environment",
+      "iconName": "FaHotel",
+      "titleTR": "Huzurlu Ortam",
+      "titleEN": "Peaceful Environment",
+      "descriptionTR": "Zeytin ağaçları arasında huzur dolu oturma alanları",
+      "descriptionEN": "Peaceful seating areas among olive trees"
+    }
+  ],
+  "badgesTR": [
+    "Eşsiz Deniz Manzarası",
+    "Doğa ile İç İçe",
+    "Muhteşem Bahçe"
+  ],
+  "badgesEN": [
+    "Unique Sea View",
+    "Surrounded by Nature",
+    "Beautiful Garden"
+  ]
+} 

@@ -1,0 +1,14 @@
+{ 
+  "buildCommand": "npm install --save-dev typescript && npm install --legacy-peer-deps --force && next build", 
+  "installCommand": "npm install --save-dev typescript && npm install --legacy-peer-deps --force && npm install tailwindcss@3.3.0 autoprefixer@10.4.21 postcss@8.4.33 postcss-selector-parser@6.0.10 postcss-nested@6.0.1 postcss-preset-env@9.5.0 --legacy-peer-deps --force", 
+  "framework": "nextjs", 
+  "outputDirectory": ".next", 
+  "rewrites": [ 
+    { "source": "/(.*)", "destination": "/" } 
+  ], 
+  "env": { 
+    "DATABASE_URL": "postgresql://neondb_owner:npg_Z9MCcdwu3YGb@ep-icy-bird-a2ty8aid-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require", 
+    "TEBI_BUCKET": "dogahotelfethiye", 
+    "TEBI_API_KEY": "alznfugnmS1jyhnS", 
+    "TEBI_MASTER_KEY": "mcjtH1bhF2mnIke7VB2MVuQnk5YaJdbTCisd7xhk", 
+    "NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY": "public_pN6cJbvfbzQHZXcDYBNQGZa10JM=" 

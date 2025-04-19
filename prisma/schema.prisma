@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model About {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  imageUrl  String?  @map("image_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("about")
+}
+
+model AboutSection {
+  id         String   @id @default(uuid())
+  titleTR    String   @map("title_tr")
+  titleEN    String   @map("title_en")
+  subtitleTR String?  @map("subtitle_tr")
+  subtitleEN String?  @map("subtitle_en")
+  contentTR  String   @map("content_tr")
+  contentEN  String   @map("content_en")
+  imageUrl   String?  @map("image_url")
+  position   Int      @default(0)
+  showOnHome Boolean  @default(true) @map("show_on_home")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  badges_en  String   @default("")
+  badges_tr  String   @default("")
+
+  @@map("about_sections")
+}
+
+model Slider {
+  id            String   @id @default(uuid())
+  titleTR       String?  @map("title_tr")
+  titleEN       String?  @map("title_en")
+  subtitleTR    String?  @map("subtitle_tr")
+  subtitleEN    String?  @map("subtitle_en")
+  descriptionTR String?  @map("description_tr")
+  descriptionEN String?  @map("description_en")
+  imageUrl      String?  @map("image_url")
+  videoUrl      String?  @map("video_url")
+  orderNumber   Int      @default(0) @map("order_number")
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("slider")
+}
+
+model Gallery {
+  id            String   @id @default(uuid())
+  titleTR       String?  @map("title_tr")
+  titleEN       String?  @map("title_en")
+  descriptionTR String?  @map("description_tr")
+  descriptionEN String?  @map("description_en")
+  imageUrl      String?  @map("image_url")
+  videoUrl      String?  @map("video_url")
+  orderNumber   Int      @default(0) @map("order_number")
+  type          String   @default("image")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("gallery")
+}
+
+model Service {
+  id             String           @id @default(uuid())
+  titleTR        String           @map("title_tr")
+  titleEN        String           @map("title_en")
+  descriptionTR  String           @map("description_tr")
+  descriptionEN  String           @map("description_en")
+  detailsTR      String[]         @map("details_tr")
+  detailsEN      String[]         @map("details_en")
+  main_image_url String?
+  icon           String?
+  orderNumber    Int              @default(0) @map("order_number")
+  active         Boolean          @default(true)
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+  gallery        ServiceGallery[]
+
+  @@map("services")
+}
+
+model ServiceGallery {
+  id          String   @id @default(uuid())
+  serviceId   String   @map("service_id")
+  imageUrl    String   @map("image_url")
+  orderNumber Int      @default(0) @map("order_number")
+  createdAt   DateTime @default(now()) @map("created_at")
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("service_gallery")
+}
+
+model Room {
+  id            String        @id @default(uuid())
+  nameTR        String        @map("name_tr")
+  nameEN        String        @map("name_en")
+  descriptionTR String        @map("description_tr")
+  descriptionEN String        @map("description_en")
+  featuresTR    String[]      @map("features_tr")
+  featuresEN    String[]      @map("features_en")
+  capacity      Int           @default(2)
+  size          Int           @default(25)
+  mainImageUrl  String?       @map("main_image_url")
+  type          String        @default("standard")
+  roomTypeId    String?       @map("room_type_id")
+  active        Boolean       @default(true)
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  orderNumber   Int           @default(0) @map("order_number")
+  priceEN       String        @map("price_en")
+  priceTR       String        @map("price_tr")
+  gallery       RoomGallery[]
+  roomType      RoomType?     @relation(fields: [roomTypeId], references: [id])
+
+  @@map("rooms")
+}
+
+model RoomGallery {
+  id          String   @id @default(uuid())
+  roomId      String   @map("room_id")
+  imageUrl    String   @map("image_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  orderNumber Int      @default(0) @map("order_number")
+  room        Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@map("room_gallery")
+}
+
+model RoomType {
+  id        String   @id @default(uuid())
+  nameTR    String   @map("name_tr")
+  nameEN    String   @map("name_en")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  rooms     Room[]
+
+  @@map("room_types")
+}

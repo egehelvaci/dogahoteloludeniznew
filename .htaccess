@@ -1,0 +1,45 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Gelen istekleri dosya ve klasör varlığına göre kontrol et
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Eğer dosya veya klasör yoksa index.html'e yönlendir
+  RewriteRule ^(.*)$ /index.html [L]
+</IfModule>
+
+# GZIP sıkıştırma
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml
+</IfModule>
+
+# Önbellek kontrolü
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Medya dosyaları için 1 yıl
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+  
+  # CSS, JS, PDF için 1 ay
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/x-javascript "access plus 1 month"
+  
+  # Favicon için 1 yıl
+  ExpiresByType image/x-icon "access plus 1 year"
+  
+  # Varsayılan değer 2 gün
+  ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# SVG dosyaları için MIME tipi
+AddType image/svg+xml .svg .svgz 

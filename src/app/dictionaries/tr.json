@@ -1,0 +1,14 @@
+{
+  "gallery": {
+    "galleryTitle": "Fotoğraf Galerisi",
+    "gallerySubtitle": "Otelimizden güzel fotoğraflar",
+    "viewImage": "Fotoğrafı Görüntüle",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "close": "Kapat",
+    "watchVideo": "Videoyu İzle",
+    "loadingVideo": "Video Yükleniyor...",
+    "videoDescription": "Video Açıklaması",
+    "videoTitle": "Video Başlığı"
+  }
+} 
