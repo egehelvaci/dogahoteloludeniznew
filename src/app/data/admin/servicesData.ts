@@ -107,7 +107,7 @@ const initialServiceData: ServiceItem[] = [
 async function fetchServicesData(): Promise<ServiceItem[]> {
   const timestamp = Date.now(); // Önbelleği kırmak için zaman damgası
   try {
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     const response = await fetch(`${baseUrl}/api/admin/services?t=${timestamp}`, {
       method: 'GET',
       headers: {
@@ -234,7 +234,7 @@ export async function getAllServicesData(): Promise<ServiceItem[]> {
 export async function getServiceById(id: string): Promise<ServiceItem | null> {
   try {
     const timestamp = Date.now();
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/admin/services/${id}?t=${timestamp}`, {
       method: 'GET',
@@ -336,7 +336,27 @@ export async function updateServiceGallery(id: string, galleryData: { image: str
 
 // Temel URL yardımcı fonksiyonu
 const getBaseUrl = (): string => {
-  return typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+  // Vercel'de çalıştığında
+  if (process.env.VERCEL_URL) {
+    console.log('Vercel URL kullanılıyor:', `https://${process.env.VERCEL_URL}`);
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // Production URL (Vercel için)
+  if (process.env.VERCEL) {
+    console.log('Production URL kullanılıyor: https://dogahoteloludeniznew.vercel.app');
+    return 'https://dogahoteloludeniznew.vercel.app';
+  }
+  
+  // Tarayıcıda çalışıyorsa
+  if (typeof window !== 'undefined') {
+    console.log('Tarayıcı origin kullanılıyor:', window.location.origin);
+    return window.location.origin;
+  }
+  
+  // Default (Geliştirme ortamında)
+  console.log('Varsayılan localhost kullanılıyor');
+  return 'http://localhost:3000';
 };
 
 // Yeni servis ekle

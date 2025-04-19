@@ -37,6 +37,31 @@ export function extractYoutubeId(url: string): string | null {
   return (match && match[7].length === 11) ? match[7] : null;
 }
 
+// getBaseUrl yardımcı fonksiyonu
+const getBaseUrl = (): string => {
+  // Vercel'de çalıştığında
+  if (process.env.VERCEL_URL) {
+    console.log('Vercel URL kullanılıyor:', `https://${process.env.VERCEL_URL}`);
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // Production URL (Vercel için)
+  if (process.env.VERCEL) {
+    console.log('Production URL kullanılıyor: https://dogahoteloludeniznew.vercel.app');
+    return 'https://dogahoteloludeniznew.vercel.app';
+  }
+  
+  // Tarayıcıda çalışıyorsa
+  if (typeof window !== 'undefined') {
+    console.log('Tarayıcı origin kullanılıyor:', window.location.origin);
+    return window.location.origin;
+  }
+  
+  // Default (Geliştirme ortamında)
+  console.log('Varsayılan localhost kullanılıyor');
+  return 'http://localhost:3000';
+};
+
 // Tüm galeri öğelerini getirme API'si - Server Component'ler için
 export async function getAllGalleryItems(): Promise<GalleryItem[]> {
   try {
@@ -64,7 +89,7 @@ export async function getAllGalleryItems(): Promise<GalleryItem[]> {
     
     // Client tarafında ise fetch kullanır
     const timestamp = Date.now(); // Önbelleği kırmak için
-    const baseUrl = window.location.origin;
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/gallery?t=${timestamp}`, {
       method: 'GET',
@@ -129,7 +154,7 @@ export async function getGalleryItemById(id: string): Promise<GalleryItem | null
     }
     
     const timestamp = Date.now();
-    const baseUrl = window.location.origin;
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/gallery/${id}?t=${timestamp}`, {
       method: 'GET',
@@ -170,7 +195,7 @@ export async function getGalleryItemById(id: string): Promise<GalleryItem | null
 // Yeni galeri öğesi ekleme - Client'dan çağrılır
 export async function addGalleryItem(item: Omit<GalleryItem, 'id' | 'order'>): Promise<GalleryItem | null> {
   try {
-    const baseUrl = window.location.origin;
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/gallery`, {
       method: 'POST',
@@ -195,7 +220,7 @@ export async function addGalleryItem(item: Omit<GalleryItem, 'id' | 'order'>): P
 // Galeri öğesi güncelleme - Client'dan çağrılır
 export async function updateGalleryItem(id: string, updates: Partial<GalleryItem>): Promise<GalleryItem | null> {
   try {
-    const baseUrl = window.location.origin;
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/gallery/${id}`, {
       method: 'PUT',
@@ -220,7 +245,7 @@ export async function updateGalleryItem(id: string, updates: Partial<GalleryItem
 // Galeri öğesi silme - Client'dan çağrılır
 export async function deleteGalleryItem(id: string): Promise<boolean> {
   try {
-    const baseUrl = window.location.origin;
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/gallery/${id}`, {
       method: 'DELETE',
@@ -244,7 +269,7 @@ export async function deleteGalleryItem(id: string): Promise<boolean> {
 // Galeri öğelerini sıralama - Client'dan çağrılır
 export async function reorderGalleryItems(items: {id: string, order: number}[]): Promise<boolean> {
   try {
-    const baseUrl = window.location.origin;
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/gallery/reorder`, {
       method: 'POST',

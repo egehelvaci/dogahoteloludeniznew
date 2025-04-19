@@ -251,21 +251,26 @@ export async function getRoomsForLanguage(lang: string): Promise<Room[]> {
 
 // getBaseUrl fonksiyonu
 const getBaseUrl = (): string => {
-  if (typeof window !== 'undefined') {
-    return window.location.origin;
-  }
-  
   // Vercel'de çalıştığında
   if (process.env.VERCEL_URL) {
+    console.log('Vercel URL kullanılıyor:', `https://${process.env.VERCEL_URL}`);
     return `https://${process.env.VERCEL_URL}`;
   }
   
   // Production URL (Vercel için)
-  if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+  if (process.env.VERCEL) {
+    console.log('Production URL kullanılıyor: https://dogahoteloludeniznew.vercel.app');
     return 'https://dogahoteloludeniznew.vercel.app';
   }
   
-  // Geliştirme ortamında
+  // Tarayıcıda çalışıyorsa
+  if (typeof window !== 'undefined') {
+    console.log('Tarayıcı origin kullanılıyor:', window.location.origin);
+    return window.location.origin;
+  }
+  
+  // Default (Geliştirme ortamında)
+  console.log('Varsayılan localhost kullanılıyor');
   return 'http://localhost:3000';
 };
 

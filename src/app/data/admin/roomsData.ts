@@ -209,9 +209,7 @@ const initialRoomData: RoomItem[] = [
 const fetchRoomsData = async (): Promise<RoomItem[]> => {
   try {
     // Tam URL oluşturma - geliştirme veya üretim
-    const baseUrl = typeof window !== 'undefined'
-      ? window.location.origin
-      : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}/api/rooms`, {
       method: 'GET',
@@ -363,9 +361,7 @@ export async function getRoomById(id: string): Promise<RoomItem | null> {
 export async function fetchRoomById(id: string): Promise<RoomItem | null> {
   try {
     // Tam URL oluşturma
-    const baseUrl = typeof window !== 'undefined' 
-      ? window.location.origin 
-      : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     // Timestamp ekleyerek cache'lemeyi önle
     const timestamp = Date.now();
@@ -519,21 +515,26 @@ export async function getSiteRoomById(lang: string, id: string): Promise<SiteRoo
 
 // Baz URL alma fonksiyonu
 const getBaseUrl = (): string => {
-  if (typeof window !== 'undefined') {
-    return window.location.origin;
-  }
-  
   // Vercel'de çalıştığında
   if (process.env.VERCEL_URL) {
+    console.log('Vercel URL kullanılıyor:', `https://${process.env.VERCEL_URL}`);
     return `https://${process.env.VERCEL_URL}`;
   }
   
   // Production URL (Vercel için)
-  if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+  if (process.env.VERCEL) {
+    console.log('Production URL kullanılıyor: https://dogahoteloludeniznew.vercel.app');
     return 'https://dogahoteloludeniznew.vercel.app';
   }
   
-  // Geliştirme ortamında
+  // Tarayıcıda çalışıyorsa
+  if (typeof window !== 'undefined') {
+    console.log('Tarayıcı origin kullanılıyor:', window.location.origin);
+    return window.location.origin;
+  }
+  
+  // Default (Geliştirme ortamında)
+  console.log('Varsayılan localhost kullanılıyor');
   return 'http://localhost:3000';
 };
 

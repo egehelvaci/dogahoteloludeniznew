@@ -11,12 +11,35 @@ export interface RoomType {
 // Temel URL'ler
 const API_URL = '/api/admin/room-types';
 
+// getBaseUrl yardımcı fonksiyonu
+const getBaseUrl = (): string => {
+  // Vercel'de çalıştığında
+  if (process.env.VERCEL_URL) {
+    console.log('Vercel URL kullanılıyor:', `https://${process.env.VERCEL_URL}`);
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // Production URL (Vercel için)
+  if (process.env.VERCEL) {
+    console.log('Production URL kullanılıyor: https://dogahoteloludeniznew.vercel.app');
+    return 'https://dogahoteloludeniznew.vercel.app';
+  }
+  
+  // Tarayıcıda çalışıyorsa
+  if (typeof window !== 'undefined') {
+    console.log('Tarayıcı origin kullanılıyor:', window.location.origin);
+    return window.location.origin;
+  }
+  
+  // Default (Geliştirme ortamında)
+  console.log('Varsayılan localhost kullanılıyor');
+  return 'http://localhost:3000';
+};
+
 // Tüm oda tiplerini getir
 export async function getAllRoomTypes(): Promise<RoomType[]> {
   try {
-    const baseUrl = typeof window !== 'undefined'
-      ? window.location.origin
-      : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}${API_URL}`, {
       method: 'GET',
@@ -47,9 +70,7 @@ export async function getAllRoomTypes(): Promise<RoomType[]> {
 // ID'ye göre oda tipi getir
 export async function getRoomTypeById(id: string): Promise<RoomType | null> {
   try {
-    const baseUrl = typeof window !== 'undefined'
-      ? window.location.origin
-      : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}${API_URL}/${id}`, {
       method: 'GET',
@@ -80,9 +101,7 @@ export async function getRoomTypeById(id: string): Promise<RoomType | null> {
 // Yeni oda tipi ekle
 export async function addRoomType(roomType: Omit<RoomType, 'id' | 'createdAt' | 'updatedAt'>): Promise<RoomType | null> {
   try {
-    const baseUrl = typeof window !== 'undefined'
-      ? window.location.origin
-      : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}${API_URL}`, {
       method: 'POST',
@@ -113,9 +132,7 @@ export async function addRoomType(roomType: Omit<RoomType, 'id' | 'createdAt' | 
 // Oda tipini güncelle
 export async function updateRoomType(id: string, roomType: Partial<RoomType>): Promise<RoomType | null> {
   try {
-    const baseUrl = typeof window !== 'undefined'
-      ? window.location.origin
-      : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}${API_URL}/${id}`, {
       method: 'PUT',
@@ -146,9 +163,7 @@ export async function updateRoomType(id: string, roomType: Partial<RoomType>): P
 // Oda tipini sil
 export async function deleteRoomType(id: string): Promise<boolean> {
   try {
-    const baseUrl = typeof window !== 'undefined'
-      ? window.location.origin
-      : 'http://localhost:3000';
+    const baseUrl = getBaseUrl();
     
     const response = await fetch(`${baseUrl}${API_URL}/${id}`, {
       method: 'DELETE',
