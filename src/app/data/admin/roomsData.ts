@@ -529,7 +529,7 @@ const getBaseUrl = (): string => {
   }
   
   // Production URL (Vercel için)
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
     return 'https://dogahoteloludeniznew.vercel.app';
   }
   

@@ -13,8 +13,7 @@ const nextConfig = {
     ignoreBuildErrors: true
   },
   env: {
-    VERCEL_URL: process.env.VERCEL_URL || '',
-    NODE_ENV: process.env.NODE_ENV || 'development'
+    VERCEL_URL: process.env.VERCEL_URL || ''
   }
 }
 
