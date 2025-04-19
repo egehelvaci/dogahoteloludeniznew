@@ -519,9 +519,22 @@ export async function getSiteRoomById(lang: string, id: string): Promise<SiteRoo
 
 // Baz URL alma fonksiyonu
 const getBaseUrl = (): string => {
-  return typeof window !== 'undefined'
-    ? window.location.origin
-    : 'http://localhost:3000';
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  
+  // Vercel'de çalıştığında
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // Production URL (Vercel için)
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://dogahoteloludeniznew.vercel.app';
+  }
+  
+  // Geliştirme ortamında
+  return 'http://localhost:3000';
 };
 
 // Yeni oda ekleme

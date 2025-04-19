@@ -249,6 +249,26 @@ export async function getRoomsForLanguage(lang: string): Promise<Room[]> {
   }
 }
 
+// getBaseUrl fonksiyonu
+const getBaseUrl = (): string => {
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  
+  // Vercel'de çalıştığında
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // Production URL (Vercel için)
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://dogahoteloludeniznew.vercel.app';
+  }
+  
+  // Geliştirme ortamında
+  return 'http://localhost:3000';
+};
+
 // Belirli bir odayı ID'ye göre getiren asenkron fonksiyon
 export async function getRoomById(lang: string, id: string): Promise<Room | undefined> {
   try {
@@ -259,9 +279,7 @@ export async function getRoomById(lang: string, id: string): Promise<Room | unde
 
     try {
       const timestamp = Date.now(); // Cache'lemeden kaçınmak için timestamp ekle
-      const baseUrl = typeof window !== 'undefined' 
-        ? window.location.origin 
-        : 'http://localhost:3000';
+      const baseUrl = getBaseUrl();
         
       const url = `${baseUrl}/api/rooms/${id}?t=${timestamp}`;
       console.log('Direkt API isteği yapılıyor:', url);
